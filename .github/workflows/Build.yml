@@ -1,7 +1,4 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
-on: 
+on:
   push
 
 jobs:
@@ -13,10 +10,9 @@ jobs:
     - run: npm --version
     - uses: actions/checkout@v3
     
-    # Install Puppeteer dependencies for Chromium
+    # Install Puppeteer dependencies for Chromium (without sudo)
     - name: Install dependencies for Puppeteer
-      run: sudo apt-get update && sudo apt-get install -y libnss3 libatk-bridge2.0-0 libx11-xcb1 libxcb-dri3-0 libgbm-dev
+      run: apt-get update && apt-get install -y libnss3 libatk-bridge2.0-0 libx11-xcb1 libxcb-dri3-0 libgbm-dev
     
     - run: npm install
     - run: node scripts/scheduler.js
-    
