@@ -126,46 +126,46 @@ async function submitForm(event) {
     // Show login popup on page load
     loginPopup.style.display = 'flex';
   
-    // Continue button click event
-    continueButton.addEventListener('click', async function () {
-        const email = loginEmailInput.value.trim();
-  
-        if (email === '') {
-            document.getElementById('continual').innerText = 'Please enter your email!';
-            return;
-        }
-  
-        continueButton.innerHTML = '<div id="loader"></div>';
-  
-        // Check if email exists in Airtable
-        const userDataExists = await checkUserDataExists(email);
-  
-        if (userDataExists) {
-            // Display already registered message
-            document.getElementById('giffy').src = 'images/giphy.webp';
-            document.getElementById('continual').innerText = 'You have already registered.';
-            document.getElementById('login-input').style.display = "none";
-            // Change continue button text to OK and reload page on click
-            continueButton.innerHTML = 'OK <img class="rocket" src="images/rocket.png" alt="">';
-            continueButton.addEventListener('click', function () {
+// Function to handle the button click logic
+continueButton.addEventListener('click', async function () {
+    const email = loginEmailInput.value.trim();
+
+    if (email === '') {
+        document.getElementById('continual').innerText = 'Please enter your email!';
+        return;
+    }
+
+    continueButton.innerHTML = '<div id="loader"></div>';
+
+    // Check if email exists in Airtable
+    const userDataExists = await checkUserDataExists(email);
+
+    if (userDataExists) {
+        // Display already registered message
+        document.getElementById('giffy').src = 'images/giphy.webp';
+        document.getElementById('continual').innerText = 'You have already registered.';
+        document.getElementById('login-input').style.display = "none";
+        // Change continue button text to OK and reload page on click
+        continueButton.innerHTML = 'OK <img class="rocket" src="images/rocket.png" alt="">';
+        continueButton.addEventListener('click', function () {
+            location.reload();
+        });
+        continueButton.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
                 location.reload();
-            });
-            continueButton.addEventListener("keydown", function (event) {
-                if (event.key === "Enter") {
-                    location.reload();
-                }
-            });
-      
-        } else {
-            // Hide login popup and allow user to continue with registration
-            loginPopup.style.display = 'none';
-            // Auto-fill email input field in registration form
-            const autoFilledEmail = document.getElementById('email');
-            autoFilledEmail.value = email;
-            autoFilledEmail.disabled = true;
-        }
-    });
-  });
+            }
+        });
+  
+    } else {
+        // Hide login popup and allow user to continue with registration
+        loginPopup.style.display = 'none';
+        // Auto-fill email input field in registration form
+        const autoFilledEmail = document.getElementById('email');
+        autoFilledEmail.value = email;
+        autoFilledEmail.disabled = true;
+    }
+});
+});
   
   // Function to format WhatsApp number input
   const inputField = document.getElementById('whatsapp-number');
@@ -227,7 +227,6 @@ async function submitForm(event) {
     popupOverlay.style.display = 'flex';
   }
   
-  // DOMContentLoaded event listener for form submission
   document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('form').addEventListener('submit', submitForm);
 
