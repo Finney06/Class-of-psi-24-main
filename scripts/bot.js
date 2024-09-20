@@ -2,7 +2,7 @@
 
 const qrcode = require('qrcode-terminal');
 const { Client, LocalAuth, MessageMedia } = require('whatsapp-web.js');
-const fs = require('fs');
+// const fs = require('fs');
 const birthdayMessages = require('./birthdayMessages');
 
 const client = new Client({
@@ -20,7 +20,11 @@ client.on('ready', () => {
 
 // Event: Disconnected
 client.on('disconnected', (reason) => {
-    console.log('Disconnected:', reason);
+    console.log('Bot was disconnected. Reason:', reason);
+
+    // Send a WhatsApp message to yourself or an admin
+    const adminNumber = '2349025656789@c.us'; // Add admin's WhatsApp number in format 123456789@c.us
+    client.sendMessage(adminNumber, `The bot was disconnected. Reason: ${reason}`);
 });
 
 // Start the WhatsApp client
