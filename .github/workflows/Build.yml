@@ -8,10 +8,11 @@ jobs:
     - run: node --version 
     - run: npm --version
     - uses: actions/checkout@v3
+    - run: npm install
     
     # Install Puppeteer dependencies for Chromium
     - name: Install dependencies for Puppeteer
       run: apt-get update && apt-get install -y libnss3 libatk-bridge2.0-0 libx11-xcb1 libxcb-dri3-0 libgbm-dev libcups2
 
-    - run: npm install
+
     - run: node scripts/scheduler.js
