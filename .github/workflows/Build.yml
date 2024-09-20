@@ -12,5 +12,4 @@ jobs:
     - run: npm --version
     - uses: actions/checkout@v3
     - run: npm install
-    - run: npm install whatsapp-web.js
     - run: node scripts/scheduler.js
