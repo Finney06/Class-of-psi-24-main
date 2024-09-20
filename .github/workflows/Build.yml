@@ -4,15 +4,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: 'ghcr.io/puppeteer/puppeteer:latest' # Use the Puppeteer Docker image
     steps:
+    - run: chmod -R 777 /__w/ # Ensure read/write permissions for all users
     - run: node --version 
     - run: npm --version
     - uses: actions/checkout@v3
-
-    # Install Puppeteer and Chromium dependencies
-    - name: Install dependencies for Puppeteer
-      run: apt-get update && apt-get install -y libnss3 libatk-bridge2.0-0 libx11-xcb1 libxcb-dri3-0 libgbm-dev libcups2
-
+    
     - run: npm install
     - run: node scripts/scheduler.js
-    
